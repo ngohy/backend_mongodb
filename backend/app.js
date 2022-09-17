@@ -7,7 +7,9 @@ const mongoose = require('mongoose')
 const app = express()
 
 
-const roomRoute = require('./src/routes/bookingRoom/roomRoute')
+const roomRoute = require('./src/routes/bookingRoom/roomRoute');
+const userRouter = require('./src/routes/user/userRoute');
+const commentRouter= require('./src/routes/comments/commentRoute')
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -25,21 +27,21 @@ app.use(bodyParser.json({
 
 
 //CONNECT DB mongoose connect(url_Mongoose,callback)
-mongoose.connect((process.env.MONGOOSE_URL), { useNewUrlParser: true, useUnifiedTopology: true });
-
-const connection = mongoose.connection;
-
-connection.once("open", function () {
-  console.log("MongoDB database connection established successfully");
+mongoose.connect((process.env.MONGOOSE_URL),()=>{
+  console.log("connecting...");
 });
 
 
 //ROUTES
 
 //ROOM
-app.use('/api', roomRoute);
-//USER
+app.use('/api/room', roomRoute);
 
+//USER
+ app.use("/api/user",userRouter);
+
+//COMMENT
+app.use("/api/comment",commentRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
