@@ -1,21 +1,25 @@
 const mongoose = require('mongoose')
 
 const roomSchema = new mongoose.Schema({
-    _id: { type: Number },
-    name: { type: String },
-    address: { type: String },
+    name: { type: String, required: true },
+    address: { type: String, required: true },
     bedRoom: { type: Number },
     bed: { type: Number },
-    price: { type: Number },
+    price: { type: Number, required: true },
     description: { type: String },
-    image: { type: String },
-    // users: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Users"
-    // },
-
-}, {
-    collection: "rooms"
+    image: { type: String, required: true },
+    users: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    comments: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Comment"
+    },
+    location:{
+         type: mongoose.Schema.Types.ObjectId,
+         ref:'Location'
+    }
 })
 
 let Room = mongoose.model('Room', roomSchema);

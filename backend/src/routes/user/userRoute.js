@@ -1,22 +1,18 @@
 const express = require('express');
 const userRouter = express.Router();
-const userController= require('../../controllers/userController')
+const userController= require('../../controllers/userController');
+const verifyToken = require('../../middleware/Auth');
 
-// GET ALL USERs
-userRouter.get('/getAllUser',userController.getAllUser)
+//VERIFY TOKEN
+userRouter.get('/auth',verifyToken,userController.verifyTokenUser)
 
-// CREATE USER
-userRouter.post('/createUser',userController.createUser)
+// CREATE (REGISTER) USER
+userRouter.post('/registerUser',userController.createUser)
 
-//FIND  USER BY NAME
-userRouter.get('/findUser/:name',userController.searchNameUser)
+//LOGIN User
+userRouter.post('/login',verifyToken,userController.loginUser)
 
-//FIND USER BY ID
-userRouter.get('/findUser/:id',userController.searchIdUser)
-
-
-//DELETE USER
-userRouter.delete('/deleteUser/:id',userController.deleteUser)
+userRouter.put('/updateUser/:id',verifyToken,userController.updateUser)
 
 
 module.exports = userRouter;

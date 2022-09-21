@@ -9,17 +9,19 @@ const roomController = {
       } catch (err) {
          res.status(500).json(err)
       }
-      next();
+      // next();
    },
+
    getAllRooms: async (req, res, next) => {
       try {
          const allRooms = await Room.find();
          res.status(200).json(allRooms);
       } catch (err) {
-         res.status(500).json(err)
+         res.status(500).json(`invalid ${err}`)
       }
-      next();
+      // next();
    },
+
    deleteRoom: async (req, res, next) => {
       try {
          const idRoom = req.params.id
@@ -27,20 +29,42 @@ const roomController = {
          res.status(200).json("delete successfully");
 
       } catch (err) {
-         res.status(500).json(err)
+         res.status(500).json(`delete invalid ${err}`)
       }
-      next();
+      // next();
    },
-   findRoom: async (req, res, next) => {
+
+   findRoomById: async (req, res, next) => {
       try {
          const idRoom = req.params.id
-         const room = await Room.findById(idRoom);
+         const room = await Room.findById(idRoom).populate("user")
          res.status(200).json(room);
 
       } catch (err) {
          res.status(500).json(err)
       }
-      next();
+      // next();
+   },
+
+   searchByNameRoom: async (req, res, next) => {
+       try{
+            let nameRoom = req.params.name
+            let room= await Room.find({name: nameRoom}).populate('User')
+            res.status(200).json(room)
+
+       }catch (err) {
+         res.status(500).json(err)
+       }
+   },
+
+   updateRoom: async (req, res, next) => {
+      try {
+         const idRoom = req.params.id;
+         await Room.findByIdAndUpdate(idRoom, req.body)
+         res.status(200).json('update Successfully')
+      } catch (err) {
+         res.status(500).json(`update invalid ${err}`)
+      }
    }
 }
 
