@@ -1,22 +1,6 @@
-const mongoose = require('mongoose')
-const dotenv = require('dotenv');
-
-dotenv.config();
-
-const connectDB = async () => {
-    try {
-        const URL = process.env.MONGOOSE_URL
-        await mongoose.connect(URL, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log("connect to mongooseDB...");
-    } catch (err) {
-        console.log(`error ${err}`)
-        process.exit(1);
-    }
-
+module.exports = {
+    HOST: process.env.DB_HOST || "localhost",
+    USER: process.env.DB_USER || "root",
+    PASSWORD: process.env.DB_PASSWORD || "password",
+    DB: process.env.DB_DATABASE ||"nodejs_base"
 }
-
-
-module.exports = connectDB;
