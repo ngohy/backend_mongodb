@@ -5,14 +5,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser')
 
 
-
 const app = express()
-// const connectDB = require('./src/configs/dbConfig');
 
-// const roomRoute = require('./src/routes/room/roomRoute');
-// const userRouter = require('./src/routes/user/userRoute');
-// const commentRouter = require('./src/routes/comments/commentRoute');
-// const adminRouter = require('./src/routes/userAdmin/userAdminRouter');
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -30,26 +24,6 @@ app.use(bodyParser.json({
 }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-//CONNECT DB mongoose connect(url_Mongoose,callback)
-// connectDB();
-// const connectDB = async () => {
-//   try {
-//     const URL = process.env.MONGOOSE_URL
-//     await mongoose.connect(URL, {
-//       useNewUrlParser: true,
-//       useUnifiedTopology: true,
-//     });
-//     console.log("connect to mongooseDB...");
-//   } catch (err) {
-//     console.log(`error ${err}`)
-//     process.exit(1);
-//   }
-
-// }
-// connectDB();
 
 
 //ROUTES
